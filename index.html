@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ASCII Art Converter</title>
+<link rel="stylesheet" href="style.css">
+<script>
+  // Applied before paint so there's no flash of the wrong theme on load
+  (function () {
+    const saved = localStorage.getItem('ascii-theme');
+    if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  })();
+</script>
+</head>
+<body>
+
+  <button class="theme-toggle" id="theme-toggle" title="Toggle theme">🌙</button>
+
+  <h1>ASCII Art Converter</h1>
+  <p class="subtitle">Upload an image, tune it, watch it turn into text.</p>
+
+  <div class="layout">
+    <div class="controls">
+      <label class="file-label" for="file-input">📁 Choose Image</label>
+      <input type="file" id="file-input" accept="image/*">
+
+      <div class="file-status" id="file-status">
+        <img class="thumb" id="thumb" alt="">
+        <span id="file-status-text">No image selected</span>
+      </div>
+
+      <button class="btn" id="generate-btn" disabled>⚡ Generate</button>
+
+      <div class="control-group">
+        <label>Resolution <span id="res-val">100</span> cols</label>
+        <input type="range" id="resolution" min="30" max="220" value="100">
+      </div>
+
+      <div class="control-group">
+        <label>Contrast <span id="contrast-val">1.0</span></label>
+        <input type="range" id="contrast" min="0.5" max="2.5" step="0.1" value="1.0">
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="color-toggle">
+        <label for="color-toggle">Color mode</label>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="invert-toggle">
+        <label for="invert-toggle">Invert</label>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="bold-toggle">
+        <label for="bold-toggle">Bold by darkness</label>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="copy-btn">Copy Text</button>
+        <button class="btn secondary" id="download-btn">Download .txt</button>
+      </div>
+    </div>
+
+    <div class="output-wrap">
+      <pre id="ascii-output"><span class="placeholder">Choose an image, then click "Generate" →</span></pre>
+    </div>
+  </div>
+
+  <canvas id="hidden-canvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
